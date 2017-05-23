@@ -61,7 +61,7 @@ if __name__ == "__main__":
     # NOTE: Artnet supports only 512 light values per universe.
     # Therefore we should in practise use two universes and parse the header...
 
-    art = ArtNet(dst="10.20.255.255", controlb=False)
+    art = ArtNet(dst="10.20.255.255")
 
     art.sendrgb(255,255,255)
     time.sleep(1)
