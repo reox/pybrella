@@ -25,57 +25,9 @@
 import socket
 import time
 from struct import pack
-from PIL import Image
 import os
 from itertools import chain
 import sys
-from colortemp import colortemp
-
-
-def wheel(pos):
-    pos = 255 - pos
-    if pos < 85:
-        return [(255 - pos * 3) & 0xFF, 0, (pos * 3) & 0xFF]
-    elif pos < 170:
-        pos -= 85
-        return [0, (pos * 3) & 0xFF, (255 - pos * 3) & 0xff]
-    else:
-        pos -= 170
-        return [(pos * 3) & 0xff, (255 - pos * 3) & 0xff, 0]
-
-
-def rearange(buf):
-    """
-    Rearanges the buffer from an x,y image to the actual pixel position
-    """
-
-    # buf will be an bytearray with length x*y and contains tuple with 3 items
-
-    # Need to put all columns from 8 to 15 at the end
-    #
-    # And swap every second line
-    nbuf = []
-    for c, i in enumerate(list(range(0, 256, 16)) + list(range(8, 256, 16))):
-        line = buf[i:i + 8]
-        if c % 2 == 1:
-            line = line[::-1]
-        nbuf += line
-
-    return bytearray([item for sublist in nbuf for item in sublist])
-
-
-def imageToBuffer(fname):
-    im = Image.open(fname)
-    pix = list(im.getdata())
-    if len(pix[0]) == 4:
-        pix = [(b,g,r) for r,g,b,a in pix]
-    else:
-        pix = [(b,g,r) for r,g,b in pix]
-
-    if len(pix) != 256:
-        return bytearray([0] * 768)
-
-    return rearange(pix)
 
 
 class ArtNet(object):
