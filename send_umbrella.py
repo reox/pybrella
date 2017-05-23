@@ -31,16 +31,11 @@ import sys
 
 
 class ArtNet(object):
-    def __init__(self, dst="255.255.255.255", port=0x1936, brightness=6, controlb=True):
-        """
-            Brightness: parameter from 0 to 8. 0 ...  always off, 8 ... full brightness
-            controlb: if brightness should be controlled
-        """
+    def __init__(self, dst="255.255.255.255", port=0x1936):
+
         self.seq = 0
         self.dst = dst
         self.port = port
-        self.brightness = 8 - brightness
-        self.controlb = controlb
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
         self.universe = 3
