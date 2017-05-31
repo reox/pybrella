@@ -25,13 +25,10 @@
 import socket
 import time
 from struct import pack
-import os
-from itertools import chain
-import sys
 
 
 class ArtNet(object):
-    def __init__(self, dst="255.255.255.255", port=0x1936, universe=3, umbreallas=12):
+    def __init__(self, dst="255.255.255.255", port=0x1936, universe=3, umbrellas=12):
         """
             A Simple wrapper for ArtNET.
 
@@ -52,7 +49,7 @@ class ArtNet(object):
         self.dst = dst
         self.port = port
         self.universe = universe
-        self.umbreallas = umbreallas
+        self.umbrellas = umbrellas
 
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
