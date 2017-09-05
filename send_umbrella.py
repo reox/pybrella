@@ -41,7 +41,7 @@ class ArtNet(object):
         if umbrellas * 5 > 512:
             raise ValueError("You can not send more than 512 channels per universe")
 
-        if 0 < universe > 255:
+        if not (0 <= universe <= 255):
             raise ValueError("Not a valid universe")
 
         self.seq = 0
